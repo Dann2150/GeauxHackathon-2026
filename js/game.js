@@ -92,7 +92,7 @@ export class Game {
   }
 
   deadline() {
-    return Math.max(14, 30 - 3 * (this.sol - 1) - 0.5 * this.hourIdx());
+    return Math.max(7, 15 - 1.2 * (this.sol - 1) - 0.8 * this.hourIdx());
   }
 
   damage(stat, amt) {
@@ -154,7 +154,7 @@ export class Game {
       e.penT += dt;
       if (e.penT >= e.limit && !e.done) {
         e.penT = 0;
-        this.damage(e.stat, 50);
+        this.damage(e.stat, 12);
         this.say(`${e.name} IGNORED TOO LONG! SEVERE DAMAGE.`, BAD);
         beep();
       }
