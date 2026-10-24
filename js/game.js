@@ -154,7 +154,7 @@ export class Game {
       e.penT += dt;
       if (e.penT >= e.limit && !e.done) {
         e.penT = 0;
-        this.damage(e.stat, 12);
+        this.damage(e.stat, 50);
         this.say(`${e.name} IGNORED TOO LONG! SEVERE DAMAGE.`, BAD);
         beep();
       }
