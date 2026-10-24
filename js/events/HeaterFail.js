@@ -1,0 +1,50 @@
+import { Event } from "./Event.js";
+import { OK, BAD } from "../config.js";
+import { F, randInt } from "../utils.js";
+
+export class HeaterFail extends Event {
+  static title = "HEATER BREAKERS TRIPPED";
+  static system = 0;
+  static stat = "HEAT";
+  static blurb = "The habitat is freezing. Switch every breaker ON, but each switch also flips its neighbour. Think!";
+
+  setup() {
+    this.n = 6;
+    this.st = Array(this.n).fill(true);
+    const flips = randInt(3, 5);
+    for (let i = 0; i < flips; i++) this.flip(Math.floor(Math.random() * this.n));
+    if (this.st.every(Boolean)) this.flip(0);
+  }
+
+  flip(i) {
+    this.st[i] = !this.st[i];
+    const j = i < this.n - 1 ? i + 1 : i - 1;
+    this.st[j] = !this.st[j];
+  }
+
+  press(i) {
+    this.flip(i);
+    if (this.st.every(Boolean)) this.done = true;
+  }
+
+  effects(dt) {
+    this.g.damage("HEAT", 0.8 * this.g.sev() * dt);
+  }
+
+  drawGame(c, r) {
+    const [x0, y0, x1] = r;
+    const bw = 62, gap = 10;
+    const sx = (x0 + x1) / 2 - (this.n * bw + (this.n - 1) * gap) / 2;
+    const top = y0 + 30;
+    for (let i = 0; i < this.n; i++) {
+      const bx = sx + i * (bw + gap);
+      const on = this.st[i];
+      const col = on ? OK : BAD;
+      c.rect(bx, top, bx + bw, top + 120, { fill: "#000", outline: col, width: 2 });
+      const hy = on ? top + 8 : top + 66;
+      c.rect(bx + 8, hy, bx + bw - 8, hy + 46, { fill: col });
+      c.text(bx + bw / 2, top + 138, on ? "ON" : "OFF", { font: F(10), fill: col });
+      this.g.zone([bx, top, bx + bw, top + 120], () => this.press(i));
+    }
+  }
+}
