@@ -3,7 +3,7 @@ import { ACC } from "../config.js";
 import { F, inrect, rand, randInt } from "../utils.js";
 
 const BRUSH = new Image();
-BRUSH.src = "https://media.istockphoto.com/id/1304839217/vector/paint-brush-black-icon-solid-logo-vector-illustration-isolated-on-transparent-background.jpg?s=612x612&w=is&k=20&c=0l6eezYQ4h_68maJxFA7AK123p8_vEWM5z31o5YtoNY=";
+BRUSH.src = "https://static.vecteezy.com/system/resources/thumbnails/021/767/031/small/make-up-brush-icon-symbol-illustration-design-template-vector.jpg";
 
 const COLS = 4, ROWS = 2;
 const BRUSH_SIZE = 130; // draw size in px
