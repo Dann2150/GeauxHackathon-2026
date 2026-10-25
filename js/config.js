@@ -4,6 +4,7 @@ export const W = 1000;
 export const H = 700;
 export const HOUR_SEC = 10; // real seconds per in-game hour (12 hours = 4m24s)
 export const HOURS = 24.5;
+export const NIGHT_SEC = 180;
 
 export const BG = new Image();
 BG.src = "assets/geauxhack%20background.jpg";
