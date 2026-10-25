@@ -124,7 +124,10 @@ export class Game {
       const Type = choice(pool);
       const ev = new Type(this);
       this.events.push(ev);
-      this.say(`ALERT: ${ev.name} (${TABS[ev.system]})`, BAD);
+      if (Type.facts && Type.facts.length > 0) {
+        const randomFact = choice(Type.facts);
+        this.say(randomFact, ACC);
+      }
       beep();
     }
     const base = Math.max(4.5, 15 - 0.6 * this.hourIdx() - 2 * (this.sol - 1));
@@ -162,7 +165,6 @@ export class Game {
         this.events.splice(this.events.indexOf(e), 1);
         this.fixed += 1;
         this.damage(e.stat, -10);
-        this.say(`RESOLVED: ${e.name}`, OK);
       }
     }
 
