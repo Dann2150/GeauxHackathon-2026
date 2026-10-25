@@ -74,7 +74,7 @@ export class Game {
     this.tab = 0;
     this.paused = false;
     this.state = "play";
-    this.say(`SOL ${this.sol} NIGHT SHIFT BEGINS. SURVIVE UNTIL 06:00.`, TXT);
+    this.say(`SOL ${this.sol} BEGINS. SURVIVE UNTIL 06:00.`, TXT);
   }
 
   say(msg, col = DIM) {
