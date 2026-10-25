@@ -140,10 +140,42 @@ function drawLog(g) {
   const c = g.c;
   c.rect(20, 570, 980, 690, { fill: PANEL, outline: EDGE });
 
-  const maxTextWidth = 980 - 64;
+  const maxCharsPerLine = 110; 
+  let currentY = 578;
 
-  [...g.log].reverse().forEach(([msg, col], i) => {
-    c.text(32, 578 + i * 22, "> " + msg, { anchor: "nw", font: F(10), fill: i === 0 ? col : DIM, width: maxTextWidth });
+  const maxTextWidth = 980 - 64;
+  
+  [...g.log].reverse().forEach(([msg], i) => {
+    const fullMsg = "> " + msg;
+
+    // Split the message into words and wrap them into separate lines
+    const words = fullMsg.split(' ');
+    const lines = [];
+    let currentLine = '';
+
+    for (const word of words) {
+      if ((currentLine + ' ' + word).length <= maxCharsPerLine) {
+        currentLine = currentLine ? currentLine + ' ' + word : word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    if (currentLine) lines.push(currentLine);
+
+    // Draw each line individually and advance the Y coordinate
+    lines.forEach((line, lineIndex) => {
+      // Stop drawing if we reach the bottom of the box
+      if (currentY > 670) return;
+
+      c.text(32, currentY, line, { 
+        anchor: "nw", 
+        font: F(10), 
+        fill: TXT
+      });
+      
+      currentY += 18; // Space out each line vertically
+    });
   });
 }
 

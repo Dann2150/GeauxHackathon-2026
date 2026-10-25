@@ -34,7 +34,7 @@ const backgroundMusic = new Audio('../../Elevenlabs/Audio/music.mp3');
 
 backgroundMusic.loop = true;
 
-backgroundMusic.volume = 0.02;
+backgroundMusic.volume = 0.1;
 
 function initAudio() {
     backgroundMusic.play().catch(error => {
