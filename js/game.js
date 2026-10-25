@@ -92,7 +92,7 @@ export class Game {
   }
 
   deadline() {
-    return Math.max(7, 15 - 1.2 * (this.sol - 1) - 0.8 * this.hourIdx());
+    return Math.max(8, 18 - 1.2 * (this.sol - 1) - 0.3 * this.hourIdx());
   }
 
   damage(stat, amt) {
