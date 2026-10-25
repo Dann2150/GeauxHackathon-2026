@@ -13,7 +13,7 @@ const EDGE = "#2b3544";
 
 export class CabinPressure extends Event {
   static title = "CABIN PRESSURE LEAK";
-  static system = 2; // Life support
+  static system = 2; 
   static stat = "OXYGEN";
   static blurb = "A hull seal is leaking and cabin pressure keeps drifting. PUMP and VENT to hold it inside the target range until the seal holds.";
   static facts = [
@@ -22,24 +22,26 @@ export class CabinPressure extends Event {
     "Fun Fact: If the habitat replenishes lost atmosphere, it uses up stored gases or consumes energy to generate replacement gases. A persistent leak can therefore become a resource-management problem.",
     "Fun Fact: If the leak comes from a compartment or connector that can be shut off safely, the crew may isolate the affected area while preparing a permanent repair."
   ];
-  static BAND_WIDTH = 20; // size of the target range (in pressure units)
-  static HOLD_TIME = 5;   // seconds of continuous stability needed
-  static STEP = 6;        // PUMP adds +STEP, VENT adds -STEP
+  static BAND_WIDTH = 20; 
+  static HOLD_TIME = 5;   
+  static STEP = 6;        
 
   setup() {
-    // Random target range each time (kept away from the very ends)
+    // Random target range each time 
     this.lo = 10 + Math.random() * (80 - CabinPressure.BAND_WIDTH);
     this.hi = this.lo + CabinPressure.BAND_WIDTH;
 
-    // Start on the far side of the bar from the target, outside the range
+    // Start on the far side of the bar from the target
     const mid = (this.lo + this.hi) / 2;
     this.level = mid < 50 ? Math.min(95, this.hi + 12) : Math.max(5, this.lo - 12);
 
-    this.drift = (Math.random() < 0.5 ? -1 : 1) * 6; // units/sec
-    this.stable = 0;                                 // continuous seconds in range
-    this.kick = 0;                                   // time until next gust
-    this.t = 0;                                      // animation clock
+    this.drift = (Math.random() < 0.5 ? -1 : 1) * 6; 
+    this.stable = 0;                                 
+    this.kick = 0;                                   
+    this.t = 0;                                      
     
+
+    // audio
     const cabinpressure_audio = new Audio('../../Elevenlabs/Audio/cabin_pressure.mp3');
     cabinpressure_audio.play();
 
@@ -91,7 +93,7 @@ export class CabinPressure extends Event {
     const ok = this.inBand();
     const status = ok ? OK : BAD;
 
-    // Readout
+    
     c.text(cx, y0 + 14, "PRESSURE " + this.level.toFixed(0) + " kPa", { font: F(20), fill: status });
     const trend = this.drift > 1 ? "RISING  >>" : this.drift < -1 ? "<<  FALLING" : "STEADY";
     c.text(cx, y0 + 38, trend, { font: F(13), fill: ACC });
@@ -104,7 +106,7 @@ export class CabinPressure extends Event {
     const gy1 = gy0 + 32;
     const px = (v) => gx0 + (v / 100) * gw;
 
-    // Frame + empty track
+    
     box(c, gx0 - 4, gy0 - 4, gx1 + 4, gy1 + 4, { fill: PANEL, stroke: EDGE });
     box(c, gx0, gy0, gx1, gy1, { fill: TRACK });
 
@@ -117,18 +119,18 @@ export class CabinPressure extends Event {
     }
 
     // Target range, drawn on top so it stays visible over the fill:
-    // a "[ ]" bracket around the range plus a bar above it
+    
     const bl = px(this.lo), bh = px(this.hi);
     const tc = ok ? OK : ACC;
-    box(c, bl - 2, gy0 - 8, bl + 2, gy1 + 8, { fill: tc });         // left edge
-    box(c, bh - 2, gy0 - 8, bh + 2, gy1 + 8, { fill: tc });         // right edge
-    box(c, bl - 2, gy0 - 8, bl + 8, gy0 - 4, { fill: tc });         // left top cap
-    box(c, bh - 8, gy0 - 8, bh + 2, gy0 - 4, { fill: tc });         // right top cap
-    box(c, bl - 2, gy1 + 4, bl + 8, gy1 + 8, { fill: tc });         // left bottom cap
-    box(c, bh - 8, gy1 + 4, bh + 2, gy1 + 8, { fill: tc });         // right bottom cap
+    box(c, bl - 2, gy0 - 8, bl + 2, gy1 + 8, { fill: tc });         
+    box(c, bh - 2, gy0 - 8, bh + 2, gy1 + 8, { fill: tc });         
+    box(c, bl - 2, gy0 - 8, bl + 8, gy0 - 4, { fill: tc });         
+    box(c, bh - 8, gy0 - 8, bh + 2, gy0 - 4, { fill: tc });         
+    box(c, bl - 2, gy1 + 4, bl + 8, gy1 + 8, { fill: tc });         
+    box(c, bh - 8, gy1 + 4, bh + 2, gy1 + 8, { fill: tc });         
     c.text((bl + bh) / 2, gy0 - 18, "TARGET", { font: F(11), fill: tc });
 
-    // ---- Hold timer bar ----
+    // Hold timer bar 
     const ty0 = gy1 + 28;
     const ty1 = ty0 + 12;
     const frac = Math.min(1, this.stable / CabinPressure.HOLD_TIME);
@@ -139,7 +141,7 @@ export class CabinPressure extends Event {
       font: F(13), fill: ok ? ACC : BAD,
     });
 
-    // ---- Buttons: PUMP (+STEP) / VENT (-STEP) ----
+    // Buttons VENT AND PUMP
     const bw = 120, bth = 40, gap = 16;
     const by = ty1 + 30;
     const sx = cx - (2 * bw + gap) / 2;

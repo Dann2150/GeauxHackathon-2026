@@ -1,4 +1,4 @@
-// Base class for every emergency. Subclasses set static metadata
+// Base class for every emergency. 
 // (title, system, stat, blurb) and override the hook methods.
 
 import { PANEL, EDGE, BAD, DIM, WARN, OK, TXT } from "../config.js";
@@ -25,14 +25,14 @@ export class Event {
   get stat() { return this.constructor.stat; }
   get blurb() { return this.constructor.blurb; }
 
-  // hooks ---------------------------------------------------------------
+  // helps setup events
   setup() {}
   effects(dt) {}
   update(dt) {}
   release() {}
   drawGame(c, r) {}
 
-  // shared frame --------------------------------------------------------
+  // shared frame 
   draw(c, r) {
     this.visible = true;
     const [x0, y0, x1, y1] = r;

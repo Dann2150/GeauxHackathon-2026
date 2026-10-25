@@ -56,6 +56,8 @@ export class CosmicRadiation extends Event {
     this.newPacket();
   }
 
+  // event randomness
+  
   drawGame(c, r) {
     const [x0, y0, x1, y1] = r;
     const size = Math.min((x1 - x0 - 40) / COLS, (y1 - y0 - 50) / ROWS, 56);
