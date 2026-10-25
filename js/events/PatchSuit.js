@@ -2,6 +2,8 @@ import { Event } from "./Event.js";
 import { EDGE, OK, ACC, BAD, DIM } from "../config.js";
 import { F, rand, randInt } from "../utils.js";
 
+
+
 export class PatchSuit extends Event {
   static title = "GLOVE PUNCTURE";
   static system = 3;
@@ -19,6 +21,9 @@ export class PatchSuit extends Event {
     }
     this.drag = false;
     this.patch = null; // [x, y] while dragging
+
+    const patchsuit_audio = new Audio('../../Elevenlabs/Audio/patch_suit.mp3');
+    patchsuit_audio.play();
   }
 
   open() {

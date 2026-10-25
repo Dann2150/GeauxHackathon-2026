@@ -6,6 +6,8 @@ import { F, choice, randInt, shuffle } from "../utils.js";
 const PAIRS = [["0", "O"], ["1", "l"], ["8", "B"], ["5", "S"], ["E", "F"], ["M", "N"]];
 const COLS = 6, ROWS = 4;
 
+
+
 export class CosmicRadiation extends Event {
   static title = "COSMIC RAY DATA CORRUPTION";
   static system = 4;
@@ -17,6 +19,9 @@ export class CosmicRadiation extends Event {
     this.need = 3;
     this.flash = 0;
     this.newPacket();
+
+    const cosmicradiation_audio = new Audio('../../Elevenlabs/Audio/cosmic_radiation.mp3');
+    cosmicradiation_audio.play();
   }
 
   newPacket() {
