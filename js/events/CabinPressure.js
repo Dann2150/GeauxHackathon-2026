@@ -14,6 +14,7 @@ const PANEL = "#0f141c";
 const TRACK = "#1b2230";
 const EDGE = "#2b3544";
 
+
 export class CabinPressure extends Event {
   static title = "CABIN PRESSURE LEAK";
   static system = 2; // Life support
@@ -37,6 +38,9 @@ export class CabinPressure extends Event {
     this.stable = 0;                                 // continuous seconds in range
     this.kick = 0;                                   // time until next gust
     this.t = 0;                                      // animation clock
+    
+    const cabinpressure_audio = new Audio('../../Elevenlabs/Audio/cabin_pressure.mp3');
+    cabinpressure_audio.play();
   }
 
   inBand() {

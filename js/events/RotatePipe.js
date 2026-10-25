@@ -10,6 +10,7 @@ const COLS = 4, ROWS = 3;
 const opposite = (d) => ((d << 2) | (d >> 2)) & 15;
 const turn = (m) => ((m << 1) | (m >> 3)) & 15; // 90 degrees clockwise
 
+
 export class RotatePipe extends Event {
   static title = "WATER RECYCLER CLOG";
   static system = 2;
@@ -28,6 +29,9 @@ export class RotatePipe extends Event {
         row += target > row ? 1 : -1;
         path.push([col, row]);
       }
+    
+    const rotatepipe_audio = new Audio('../../Elevenlabs/Audio/rotate_pipe.mp3');
+    rotatepipe_audio.play();
     }
     this.outRow = row;
 
