@@ -1,6 +1,6 @@
 // Game state and simulation. Drawing lives in renderer.js, input in input.js.
 
-import { HOUR_SEC, HOURS, TXT, DIM, BAD, OK, ACC, PANEL, TABS, STAT_ORDER, DEATH_CAUSE } from "./config.js";
+import { HOUR_SEC, HOURS, NIGHT_SEC, TXT, DIM, BAD, OK, ACC, PANEL, TABS, STAT_ORDER, DEATH_CAUSE } from "./config.js";
 import { EVENT_TYPES } from "./events/index.js";
 import { F, inrect, choice, rand } from "./utils.js";
 import { beep } from "./audio.js";
@@ -136,7 +136,7 @@ export class Game {
 
   update(dt) {
     const st = this.stats;
-    this.t += dt;
+    this.t += dt * (HOURS * HOUR_SEC) / NIGHT_SEC; // in-game clock runs faster than real time
     const blackout = st.POWER <= 0;
     this.damage("POWER", 0.22 * dt * (1 + 0.1 * (this.sol - 1)));
     this.damage("RADIATION", -0.04 * dt);
