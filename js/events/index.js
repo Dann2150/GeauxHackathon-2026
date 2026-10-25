@@ -9,3 +9,4 @@ import { PatchSuit } from "./PatchSuit.js";
 import { CosmicRadiation } from "./CosmicRadiation.js";
 
 export const EVENT_TYPES = [DustStorm, HullBreach, CabinPressure, LooseCables, HeaterFail, BandwidthJam, RotatePipe, PatchSuit, CosmicRadiation];
+``

@@ -2,10 +2,6 @@ import { Event } from "./Event.js";
 import { ACC, BAD, OK } from "../config.js";
 import { F } from "../utils.js";
 
-// ---- Drawing helper -------------------------------------------------------
-// The only place that touches the canvas wrapper's rectangle API.
-// If your wrapper uses a different signature, change just this function.
-// Assumed: c.rect(x0, y0, x1, y1, { fill, stroke })
 function box(c, x0, y0, x1, y1, { fill, stroke } = {}) {
   c.rect(x0, y0, x1, y1, { fill, stroke });
 }
