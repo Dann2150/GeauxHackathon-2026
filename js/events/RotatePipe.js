@@ -16,7 +16,11 @@ export class RotatePipe extends Event {
   static system = 2;
   static stat = "OXYGEN";
   static blurb = "Mineral buildup blocked the water recycler. Click pipes to rotate them and connect the inlet to the outlet.";
-
+  static facts = [
+    "Fun Fact: When water is removed from a waste stream, dissolved substances may remain behind. Repeated processing can increase their concentration until some minerals begin to precipitate out of solution.",
+    "Fun Fact: Temperature changes can alter mineral solubility. For some salts, heating makes precipitation more likely, particularly in hot-water equipment and evaporation systems.",
+    "Fun Fact: Pumps may need to work harder to move water through restricted passages."
+  ];
   setup() {
     // Build the solution first: a path from the left column to the right.
     let row = randInt(0, ROWS - 1);

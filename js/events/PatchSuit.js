@@ -9,7 +9,11 @@ export class PatchSuit extends Event {
   static system = 3;
   static stat = "SUIT";
   static blurb = "Sharp regolith cut your glove in several places! DRAG a bandage from the kit and DROP it on each hole.";
-
+  static facts = [
+    "Fun Fact: Astronauts need gloves flexible enough to handle tools and collect samples. This flexibility makes materials, seams, and joints important engineering considerations.",
+    "Fun Fact: Astronauts exhale carbon dioxide, which must be removed from the breathing loop. A puncture or other suit-system failure could compromise the pressure environment while a separate ventilation fault could allow carbon dioxide to accumulate.",
+    "Fun Fact: During a 2013 International Space Station spacewalk, astronaut Luca Parmitano experienced water entering his helmet because of a blockage in the suit's cooling and ventilation hardware."
+  ];
   setup() {
     // stationary holes, kept apart so bandages don't overlap
     this.holes = [];

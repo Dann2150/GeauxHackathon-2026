@@ -20,6 +20,12 @@ export class BandwidthJam extends Event {
   static system = 4;
   static stat = "RADIATION"; // must be one of the stats in STAT_ORDER
   static blurb = "The link is overloaded. Messages are piling up. Click only the red URGENT ones to send them, and leave the routine ones alone.";
+  static facts = [
+    "Fun Fact: A settlement may share radio links among crew communications, rover control, scientific instruments, habitat sensors, and data transfers to Earth",
+    "Fun Fact: Radio signals between Earth and Mars take approximately 3–22 minutes one way, depending on the planets' positions.",
+    "Fun Fact: Crews could use redundant radios, backup power, alternate relay paths, and prearranged emergency procedures during lack of communication emergencies.",
+    "Fun Fact: NASA researchers have documented radio-frequency interference between spacecraft operating around Mars. Signals from one spacecraft can interfere with another spacecraft's receiver when their transmissions overlap in problematic ways."
+  ];
 
   setup() {
     this.prog = 0;   // urgent messages sent

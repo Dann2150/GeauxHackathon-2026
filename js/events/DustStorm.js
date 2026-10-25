@@ -63,7 +63,13 @@ export class DustStorm extends Event {
   static system = 1;
   static stat = "POWER";
   static blurb = "Dust is burying the solar arrays. Sweep the brush over every panel to dust them off. Missed spots slowly get buried again.";
-
+  static facts = [
+    "Fun Fact: Most storms are regional, but occasionally they grow into global dust storms that surround Mars. These can last for weeks or even months.",
+    "Fun Fact: The particles are fine and can cling to surfaces, work into moving mechanisms, and contaminate equipment. Airlocks, filters, suit-cleaning systems, and dust-resistant seals would be essential design features.",
+    "Fun Fact: If a greenhouse uses sunlight, a dust storm could reduce the light available to crops. A settlement would need to budget energy for food production during prolonged low-light conditions.",
+    "Fun Fact: Dust reduces the solar energy reaching the surface during the day, while absorbing radiation and influencing atmospheric temperatures, cooling the ground but warming parts of the atmosphere.",
+    "Fun Fact: In research reported in 2025, NASA's Perseverance rover detected evidence of electrical sparks and associated shock waves in Martian dust devils."
+  ];
   setup() {
     this.prog = 0;
     this.need = 4;
