@@ -133,5 +133,19 @@ with open("./Audio/band_widthJam.mp3", "wb") as f:
     for chunk in band_widthJam:
         f.write(chunk)
 
+#10
+
+death_audio = client.text_to_speech.stream(
+    voice_id="XB0fDUnXU5powFXDhCwa",
+    output_format="mp3_44100_128",
+    text="YOU DIED ON MARS",
+    model_id="eleven_multilingual_v2",
+)
+
+with open("./Audio/death_audio.mp3", "wb") as f:
+    
+    for chunk in death_audio:
+        f.write(chunk)
+
 print("Audio saved")
 
