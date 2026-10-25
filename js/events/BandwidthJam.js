@@ -1,6 +1,6 @@
 import { Event } from "./Event.js";
 import { OK, WARN } from "../config.js";
-import { F, inrect, rand } from "../utils.js";
+import { F, inrect } from "../utils.js";
 
 const COLS = 4, ROWS = 2;
 const SLOTS = COLS * ROWS;
@@ -18,7 +18,7 @@ const ROUTINE = ["WEATHER LOG", "PHOTO UPLOAD", "CREW EMAIL", "MUSIC LIBRARY", "
 export class BandwidthJam extends Event {
   static title = "BANDWIDTH JAM";
   static system = 4;
-  static stat = "COMMS"; // change to whatever your Comms stat is called in config
+  static stat = "RADIATION"; // must be one of the stats in STAT_ORDER
   static blurb = "The link is overloaded. Messages are piling up. Click only the red URGENT ones to send them, and leave the routine ones alone.";
 
   setup() {
@@ -36,7 +36,7 @@ export class BandwidthJam extends Event {
   }
 
   effects(dt) {
-    this.g.damage("COMMS", 0.8 * this.g.sev() * dt); // make sure "COMMS" matches your config
+    this.g.damage("RADIATION", 0.8 * this.g.sev() * dt);
   }
 
   spawn() {

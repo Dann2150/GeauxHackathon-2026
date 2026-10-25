@@ -106,7 +106,7 @@ export class Game {
 
   btn(r, label, cb, col = ACC) {
     const hover = inrect(this.mouse, r);
-    this.c.rect(...r, { fill: hover ? "#3a2016" : PANEL, outline: col, width: 2 });
+    this.c.rect(...r, { fill: hover ? "#3a2a7a" : PANEL, outline: col, width: 2 });
     this.c.text((r[0] + r[2]) / 2, (r[1] + r[3]) / 2, label, { font: F(12), fill: col });
     this.btns.push([r, cb]);
   }

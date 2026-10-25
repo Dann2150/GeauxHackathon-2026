@@ -5,11 +5,16 @@ export const H = 700;
 export const HOUR_SEC = 22; // real seconds per in-game hour (12 hours = 4m24s)
 export const HOURS = 12;
 
-export const BG = "#120a07";
-export const PANEL = "#1d120d";
-export const EDGE = "#5a3320";
-export const TXT = "#f2c9a0";
-export const DIM = "#8a6a55";
+export const BG = new Image();
+BG.src = "assets/geauxhack%20background.jpg";
+
+export const MARS = new Image();
+MARS.src = "assets/marsGH.jpg";
+
+export const PANEL = "#0b1028";
+export const EDGE = "#1b133d";
+export const TXT = "#ff7a3c";
+export const DIM = "#9aa0e0";
 export const OK = "#4ade80";
 export const WARN = "#fbbf24";
 export const BAD = "#ef4444";
