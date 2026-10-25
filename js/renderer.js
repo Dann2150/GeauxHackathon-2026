@@ -139,8 +139,11 @@ function drawPanel(g) {
 function drawLog(g) {
   const c = g.c;
   c.rect(20, 570, 980, 690, { fill: PANEL, outline: EDGE });
+
+  const maxTextWidth = 980 - 64;
+
   [...g.log].reverse().forEach(([msg, col], i) => {
-    c.text(32, 578 + i * 22, "> " + msg, { anchor: "nw", font: F(10), fill: i === 0 ? col : DIM });
+    c.text(32, 578 + i * 22, "> " + msg, { anchor: "nw", font: F(10), fill: i === 0 ? col : DIM, width: maxTextWidth });
   });
 }
 
