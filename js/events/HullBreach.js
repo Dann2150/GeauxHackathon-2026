@@ -2,14 +2,14 @@ import { Event } from "./Event.js";
 import { EDGE, BAD, WARN, DIM, ACC } from "../config.js";
 import { F, rand, randInt, inrect, now } from "../utils.js";
 
-const STEP = 6; // px between weld points along a seam
-const REACH = 15; // torch radius that counts as "on the seam"
-const FUSE = 0.06; // seconds the torch must linger on a point to fuse it
-const COOL = 1.5; // seconds for a fresh bead to cool from white-hot to grey
+const STEP = 6; 
+const REACH = 15; 
+const FUSE = 0.06;
+const COOL = 1.5; 
 
 
 
-// Jagged seam as offsets from its centre, resampled every STEP px.
+
 function makeSeam() {
   const verts = [];
   let x = -45, y = rand(-18, 18);

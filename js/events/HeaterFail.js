@@ -42,6 +42,7 @@ export class HeaterFail extends Event {
     this.g.damage("HEAT", 0.8 * this.g.sev() * dt);
   }
 
+  // event randomness
   drawGame(c, r) {
     const [x0, y0, x1] = r;
     const bw = 62, gap = 10;

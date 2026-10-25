@@ -5,14 +5,14 @@ import { F, inrect, rand, randInt } from "../utils.js";
 const BRUSH_URL = "assets/geaux%20hack%20brush.jpg"; // must match the file name in assets exactly
 
 const BRUSH = new Image();
-let sprite = null; // { img, sx, sy, sw, sh }: the brush image plus the crop area to draw
-const FALLBACK_CROP = [0.14, 0.26, 0.54, 0.78]; // used only if the browser blocks pixel access
+let sprite = null;
+const FALLBACK_CROP = [0.14, 0.26, 0.54, 0.78]; 
 
 function loadBrush(useCors) {
   BRUSH.onload = () => {
     const W = BRUSH.naturalWidth, H = BRUSH.naturalHeight;
     try {
-      // remove the white background and find the brush's bounding box
+      // find the brush's bounding box
       const cv = document.createElement("canvas");
       cv.width = W;
       cv.height = H;
@@ -23,8 +23,8 @@ function loadBrush(useCors) {
       let minX = W, minY = H, maxX = 0, maxY = 0;
       for (let i = 0; i < px.length; i += 4) {
         const min = Math.min(px[i], px[i + 1], px[i + 2]);
-        if (min > 235) px[i + 3] = 0;                                           // white -> transparent
-        else if (min > 200) px[i + 3] = Math.round(px[i + 3] * (235 - min) / 35); // soften edges
+        if (min > 235) px[i + 3] = 0;                                          
+        else if (min > 200) px[i + 3] = Math.round(px[i + 3] * (235 - min) / 35); 
         if (px[i + 3] > 20) {
           const p = i / 4, X = p % W, Y = (p - X) / W;
           if (X < minX) minX = X;
@@ -36,7 +36,6 @@ function loadBrush(useCors) {
       x.putImageData(img, 0, 0);
       sprite = { img: cv, sx: minX, sy: minY, sw: maxX - minX + 1, sh: maxY - minY + 1 };
     } catch (e) {
-      // browser blocked pixel access: draw the image as is, cropped by hand
       const [a, b, c2, d2] = FALLBACK_CROP;
       sprite = { img: BRUSH, sx: a * W, sy: b * H, sw: (c2 - a) * W, sh: (d2 - b) * H };
     }
@@ -50,11 +49,11 @@ function loadBrush(useCors) {
 loadBrush(true);
 
 const COLS = 4, ROWS = 2;
-const BRUSH_HEIGHT = 110;  // drawn height in px (width follows the image's proportions)
-const TIP = [0.45, 0.75];  // pointer spot on the cropped brush (0..1 across, 0..1 down)
-const CLEAN_RATE = 0.012;  // dust removed per px of brush movement
-const REGROW = 0.04;       // dust creeps back per second (set to 0 to disable)
-const DUST = "#e0a030";    // dust color (was brown)
+const BRUSH_HEIGHT = 110;  
+const TIP = [0.45, 0.75];  
+const CLEAN_RATE = 0.012;  
+const REGROW = 0.04;       
+const DUST = "#e0a030";   
 
 
 
@@ -121,6 +120,7 @@ export class DustStorm extends Event {
     }
   }
 
+  // randomness event
   drawGame(c, r) {
     const [x0, y0, x1, y1] = r;
     this.gameRect = r;

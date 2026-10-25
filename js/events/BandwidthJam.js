@@ -2,14 +2,16 @@ import { Event } from "./Event.js";
 import { OK, WARN } from "../config.js";
 import { F, inrect } from "../utils.js";
 
+// message constants
+
 const COLS = 4, ROWS = 2;
 const SLOTS = COLS * ROWS;
-const SPAWN_EVERY = 0.8;   // seconds between new messages
-const URGENT_CHANCE = 0.5; // chance a new message is urgent
-const URGENT_LIFE = 4.5;   // seconds before an urgent message times out
-const ROUTINE_LIFE = 3.5;  // seconds before a routine message goes away
-const WRONG_PENALTY = 1;   // messages lost for clicking a routine one
-const MISS_PENALTY = 0.5;  // messages lost when an urgent one times out
+const SPAWN_EVERY = 0.8;   
+const URGENT_CHANCE = 0.5; 
+const URGENT_LIFE = 4.5;   
+const ROUTINE_LIFE = 3.5;  
+const WRONG_PENALTY = 1;   
+const MISS_PENALTY = 0.5;  
 
 const URGENT = ["MEDICAL DATA", "LIFE SUPPORT ALERT", "SUIT TELEMETRY", "HULL SENSOR REPORT", "CREW HEALTH LOG"];
 const ROUTINE = ["WEATHER LOG", "PHOTO UPLOAD", "CREW EMAIL", "MUSIC LIBRARY", "SYSTEM BACKUP", "VIDEO CALL"];
@@ -18,7 +20,7 @@ const ROUTINE = ["WEATHER LOG", "PHOTO UPLOAD", "CREW EMAIL", "MUSIC LIBRARY", "
 export class BandwidthJam extends Event {
   static title = "BANDWIDTH JAM";
   static system = 4;
-  static stat = "RADIATION"; // must be one of the stats in STAT_ORDER
+  static stat = "RADIATION"; 
   static blurb = "The link is overloaded. Messages are piling up. Click only the red URGENT ones to send them, and leave the routine ones alone.";
   static facts = [
     "Fun Fact: A settlement may share radio links among crew communications, rover control, scientific instruments, habitat sensors, and data transfers to Earth",
@@ -28,19 +30,17 @@ export class BandwidthJam extends Event {
   ];
 
   setup() {
-    this.prog = 0;   // urgent messages sent
+    this.prog = 0;   
     this.need = 6;
     this.msgs = Array(SLOTS).fill(null);
     this.slotRects = [];
     this.spawnT = 0;
     this.wasDown = false;
-    this.flash = null; // { text, col, t }
+    this.flash = null; 
 
-    
+    // audio dialogue
     const bandwidthjam_audio = new Audio('../../Elevenlabs/Audio/band_widthJam.mp3');
     bandwidthjam_audio.play();
-
-    bandwidthjam_audio.volume = 0.8;
   }
 
   effects(dt) {
@@ -63,7 +63,7 @@ export class BandwidthJam extends Event {
   }
 
   update(dt) {
-    if (!this.slotRects.length) return; // wait for the first draw
+    if (!this.slotRects.length) return; 
 
     // new messages arrive
     this.spawnT += dt;
@@ -85,7 +85,7 @@ export class BandwidthJam extends Event {
       }
     });
 
-    // click detection (rising edge of the mouse button)
+    // click detection 
     const down = this.g.down;
     const click = down && !this.wasDown;
     this.wasDown = down;
@@ -112,6 +112,8 @@ export class BandwidthJam extends Event {
 
     if (this.prog >= this.need) this.done = true;
   }
+
+  // randomness spawn
 
   drawGame(c, r) {
     const [x0, y0, x1, y1] = r;
@@ -154,7 +156,7 @@ export class BandwidthJam extends Event {
       }
     }
 
-    // feedback line
+    
     if (this.flash) {
       c.text(cx, gy1 + 20, this.flash.text, { font: F(10), fill: this.flash.col });
     } else {

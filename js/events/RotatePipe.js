@@ -2,7 +2,7 @@ import { Event } from "./Event.js";
 import { EDGE, OK, ACC, DIM } from "../config.js";
 import { F, choice, randInt } from "../utils.js";
 
-// Each tile stores its open sides as bits: N=1, E=2, S=4, W=8.
+
 const N = 1, E = 2, S = 4, W = 8;
 const DIRS = [[N, 0, -1], [E, 1, 0], [S, 0, 1], [W, -1, 0]]; // [side, dcol, drow]
 const COLS = 4, ROWS = 3;
