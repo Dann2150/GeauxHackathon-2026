@@ -2,14 +2,59 @@ import { Event } from "./Event.js";
 import { ACC } from "../config.js";
 import { F, inrect, rand, randInt } from "../utils.js";
 
+const BRUSH_URL = "assets/geaux%20hack%20brush.jpg"; // must match the file name in assets exactly
+
 const BRUSH = new Image();
-BRUSH.src = "https://static.vecteezy.com/system/resources/thumbnails/021/767/031/small/make-up-brush-icon-symbol-illustration-design-template-vector.jpg";
+let sprite = null; // { img, sx, sy, sw, sh }: the brush image plus the crop area to draw
+const FALLBACK_CROP = [0.14, 0.26, 0.54, 0.78]; // used only if the browser blocks pixel access
+
+function loadBrush(useCors) {
+  BRUSH.onload = () => {
+    const W = BRUSH.naturalWidth, H = BRUSH.naturalHeight;
+    try {
+      // remove the white background and find the brush's bounding box
+      const cv = document.createElement("canvas");
+      cv.width = W;
+      cv.height = H;
+      const x = cv.getContext("2d");
+      x.drawImage(BRUSH, 0, 0);
+      const img = x.getImageData(0, 0, W, H);
+      const px = img.data;
+      let minX = W, minY = H, maxX = 0, maxY = 0;
+      for (let i = 0; i < px.length; i += 4) {
+        const min = Math.min(px[i], px[i + 1], px[i + 2]);
+        if (min > 235) px[i + 3] = 0;                                           // white -> transparent
+        else if (min > 200) px[i + 3] = Math.round(px[i + 3] * (235 - min) / 35); // soften edges
+        if (px[i + 3] > 20) {
+          const p = i / 4, X = p % W, Y = (p - X) / W;
+          if (X < minX) minX = X;
+          if (X > maxX) maxX = X;
+          if (Y < minY) minY = Y;
+          if (Y > maxY) maxY = Y;
+        }
+      }
+      x.putImageData(img, 0, 0);
+      sprite = { img: cv, sx: minX, sy: minY, sw: maxX - minX + 1, sh: maxY - minY + 1 };
+    } catch (e) {
+      // browser blocked pixel access: draw the image as is, cropped by hand
+      const [a, b, c2, d2] = FALLBACK_CROP;
+      sprite = { img: BRUSH, sx: a * W, sy: b * H, sw: (c2 - a) * W, sh: (d2 - b) * H };
+    }
+  };
+  BRUSH.onerror = () => {
+    if (useCors) loadBrush(false);
+  };
+  if (useCors) BRUSH.crossOrigin = "anonymous"; else BRUSH.removeAttribute("crossorigin");
+  BRUSH.src = BRUSH_URL;
+}
+loadBrush(true);
 
 const COLS = 4, ROWS = 2;
-const BRUSH_SIZE = 130; // draw size in px
-const TIP = [0.48, 0.88]; // where the bristle tip sits in the image
-const CLEAN_RATE = 0.012; // dust removed per px of brush movement
-const REGROW = 0.04; // dust creeps back per second (set to 0 to disable)
+const BRUSH_HEIGHT = 110;  // drawn height in px (width follows the image's proportions)
+const TIP = [0.45, 0.75];  // pointer spot on the cropped brush (0..1 across, 0..1 down)
+const CLEAN_RATE = 0.012;  // dust removed per px of brush movement
+const REGROW = 0.04;       // dust creeps back per second (set to 0 to disable)
+const DUST = "#e0a030";    // dust color (was brown)
 
 export class DustStorm extends Event {
   static title = "DUST STORM";
@@ -22,7 +67,7 @@ export class DustStorm extends Event {
     this.need = 4;
     this.dust = Array.from({ length: COLS * ROWS }, () => 1); // 1 = buried, 0 = clean
     this.panelRects = [];
-    this.gameRect = null; // the area where the brush replaces the cursor
+    this.gameRect = null;
     this.overGame = false;
     this.last = null;
     this.canvasEl = document.querySelector("canvas");
@@ -44,7 +89,6 @@ export class DustStorm extends Event {
   update(dt) {
     const m = this.g.mouse;
 
-    // only hide the system cursor while it's over this event's game area
     this.overGame = !!(this.visible && this.gameRect && inrect(m, this.gameRect));
     this.setCursorHidden(this.overGame);
 
@@ -56,7 +100,6 @@ export class DustStorm extends Event {
     }
     this.last = [m[0], m[1]];
 
-    // dust slowly settles back onto the panels
     this.dust = this.dust.map((d) => Math.min(1, d + REGROW * dt));
 
     const clean = this.dust.reduce((s, d) => s + (1 - d), 0) / this.dust.length;
@@ -83,32 +126,25 @@ export class DustStorm extends Event {
         const rect = [gx + col * pw + pad, gy + row * ph + pad, gx + (col + 1) * pw - pad, gy + (row + 1) * ph - pad];
         this.panelRects.push(rect);
         c.rect(...rect, { fill: "#12304f", outline: "#3b7bb8", width: 2 });
-        // dust layer fades as you brush it away
         const a = Math.round(this.dust[i] * 0xcc).toString(16).padStart(2, "0");
-        c.rect(...rect, { fill: "#8a4b2a" + a });
+        c.rect(...rect, { fill: DUST + a });
       }
     }
 
     // swirling dust
     for (let i = 0; i < 30; i++) {
       const a = rand(x0, x1), b = rand(y0, y1);
-      c.line([a, b, a + randInt(8, 30), b + randInt(-4, 4)], { fill: "#8a4b2a" });
+      c.line([a, b, a + randInt(8, 30), b + randInt(-4, 4)], { fill: DUST });
     }
 
     const cx = (x0 + x1) / 2;
     this.progressBar(c, cx - 140, gy + gh + 30, cx + 140, this.prog / this.need, "PANEL CLEARED");
 
-    // brush cursor, only while the mouse is inside the game area
-    if (this.overGame && BRUSH.complete && BRUSH.naturalWidth) {
+    // brush cursor, cropped to the drawing, no extra rotation
+    if (this.overGame && sprite) {
       const [mx, my] = this.g.mouse;
-      const ctx = c.ctx;
-      ctx.save();
-      ctx.filter = "invert(1)"; // black brush -> white
-      ctx.globalCompositeOperation = "lighten";
-      ctx.translate(mx, my);
-      ctx.rotate(0.35);
-      ctx.drawImage(BRUSH, -TIP[0] * BRUSH_SIZE, -TIP[1] * BRUSH_SIZE, BRUSH_SIZE, BRUSH_SIZE);
-      ctx.restore();
+      const h = BRUSH_HEIGHT, w = h * sprite.sw / sprite.sh;
+      c.ctx.drawImage(sprite.img, sprite.sx, sprite.sy, sprite.sw, sprite.sh, mx - TIP[0] * w, my - TIP[1] * h, w, h);
     }
   }
 }

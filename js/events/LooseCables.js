@@ -3,7 +3,7 @@ import { OK, BAD } from "../config.js";
 import { F, inrect } from "../utils.js";
 
 const COLORS = ["#e53935", "#1e88e5", "#fdd835", "#43a047"]; // red, blue, yellow, green
-const LIGHT_R = 90;           // flashlight radius in px
+const LIGHT_R = 90;           // flashlight radius in px (raise it to make the event easier)
 const WRONG_DAMAGE = 0.6;     // extra power damage for plugging into the wrong port
 const DIM = "#161c24";        // how cables look outside the light (shapes visible, colors not)
 
@@ -16,9 +16,8 @@ export class LooseCables extends Event {
   setup() {
     this.need = COLORS.length;
     this.prog = 0;
-    // shuffle which color sits at which port
     this.portColor = COLORS.map((_, i) => i).sort(() => Math.random() - 0.5);
-    this.connected = COLORS.map(() => -1); // port index each cable is plugged into, or -1
+    this.connected = COLORS.map(() => -1);
     this.selected = -1;
     this.cableRects = [];
     this.portRects = [];
@@ -43,14 +42,12 @@ export class LooseCables extends Event {
   }
 
   update(dt) {
-    if (!this.cableRects.length) return; // wait for the first draw
+    if (!this.cableRects.length) return;
     const mouse = this.g.mouse;
 
-    // flashlight replaces the system cursor only while over the game area
     this.overGame = !!(this.visible && this.gameRect && inrect(mouse, this.gameRect));
     this.setCursorHidden(this.overGame);
 
-    // click detection (rising edge of the mouse button)
     const down = this.g.down;
     const click = down && !this.wasDown;
     this.wasDown = down;
@@ -58,12 +55,10 @@ export class LooseCables extends Event {
     if (click && this.visible) {
       const pad = (r) => [r[0] - 8, r[1] - 8, r[2] + 8, r[3] + 8];
 
-      // pick up an unplugged cable
       this.cableRects.forEach((r, i) => {
         if (this.connected[i] === -1 && inrect(mouse, pad(r))) this.selected = i;
       });
 
-      // try a port
       if (this.selected !== -1) {
         this.portRects.forEach((r, j) => {
           if (this.connected.includes(j) || !inrect(mouse, pad(r))) return;
@@ -91,7 +86,6 @@ export class LooseCables extends Event {
     }
   }
 
-  // draws all cables and ports; lit = true shows real colors, false shows dark silhouettes
   drawParts(c, lit) {
     const mouse = this.g.mouse;
     this.cableRects.forEach((r, i) => {
@@ -102,9 +96,9 @@ export class LooseCables extends Event {
         const pr = this.portRects[j];
         c.line([r[2], cy, pr[0], (pr[1] + pr[3]) / 2], { fill: col, width: 4 });
       } else if (this.selected === i) {
-        c.line([r[2], cy, mouse[0], mouse[1]], { fill: col, width: 4 }); // wire follows the flashlight
+        c.line([r[2], cy, mouse[0], mouse[1]], { fill: col, width: 4 });
       } else {
-        c.line([r[0] - 40, cy, r[0], cy], { fill: col, width: 4 }); // loose cable hanging
+        c.line([r[0] - 40, cy, r[0], cy], { fill: col, width: 4 });
       }
       c.rect(...r, { fill: col, outline: lit && this.selected === i ? "#ffffff" : DIM, width: 2 });
     });
@@ -122,7 +116,6 @@ export class LooseCables extends Event {
     const cx = (x0 + x1) / 2;
     const n = COLORS.length;
 
-    // layout: cables on the left, ports on the right
     const top = y0 + 50, bottom = y1 - 56;
     const step = (bottom - top) / n;
     this.cableRects = [];
@@ -133,19 +126,17 @@ export class LooseCables extends Event {
       this.portRects.push([x1 - 100, cy - 18, x1 - 60, cy + 18]);
     }
 
-    // darkness
     c.rect(x0, y0, x1, y1, { fill: "#05070a" });
     this.drawParts(c, false);
 
-    // flashlight: draw the real colors only inside the beam
-    const ctx = c.ctx; // raw 2D context, adjust if your canvas wrapper names it differently
+    const ctx = c.ctx;
     if (this.overGame) {
       const [mx, my] = this.g.mouse;
       ctx.save();
       ctx.beginPath();
       ctx.arc(mx, my, LIGHT_R, 0, Math.PI * 2);
       ctx.clip();
-      c.rect(x0, y0, x1, y1, { fill: "#1b1f26" }); // lit floor
+      c.rect(x0, y0, x1, y1, { fill: "#1b1f26" });
       this.drawParts(c, true);
       ctx.restore();
 
@@ -155,14 +146,13 @@ export class LooseCables extends Event {
       ctx.beginPath();
       ctx.arc(mx, my, LIGHT_R, 0, Math.PI * 2);
       ctx.stroke();
-      ctx.fillStyle = "#ffffff"; // small dot at the center of the beam
+      ctx.fillStyle = "#ffffff";
       ctx.beginPath();
       ctx.arc(mx, my, 3, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
 
-    // text and progress sit outside the dark area so they stay readable
     const msg = this.flash ? this.flash.text : (this.selected === -1 ? "FIND A CABLE, THEN CLICK IT" : "NOW CLICK THE MATCHING PORT");
     c.text(cx, y0 + 22, msg, { font: F(11), fill: this.flash ? this.flash.col : "#8fb3d9" });
     this.progressBar(c, x0 + 20, y1 - 26, x1 - 20, this.prog / this.need, "CABLES RECONNECTED");

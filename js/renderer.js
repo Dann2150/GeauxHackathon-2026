@@ -10,7 +10,15 @@ function clockText(t) {
 
 export function draw(g) {
   const c = g.c;
-  c.clear(BG);
+
+  // background picture, scaled to cover the screen, with a dark fallback
+  c.rect(0, 0, W, H, { fill: "#1b133d" });
+  if (BG.complete && BG.naturalWidth) {
+    const s = Math.max(W / BG.naturalWidth, H / BG.naturalHeight);
+    const dw = BG.naturalWidth * s, dh = BG.naturalHeight * s;
+    c.ctx.drawImage(BG, (W - dw) / 2, (H - dh) / 2, dw, dh);
+  }
+
   g.btns = [];
   for (const e of g.events) e.visible = false;
   if (g.state === "title") return drawTitle(g);
@@ -18,7 +26,10 @@ export function draw(g) {
   drawTabs(g);
   drawPanel(g);
   drawLog(g);
-  if (g.paused) c.text(W / 2, H / 2, "PAUSED", { font: F(40), fill: WARN });
+  if (g.paused) {
+    c.rect(0, 0, W, H, { fill: "#0b1028", alpha: 0.6 });
+    c.text(W / 2, H / 2, "PAUSED", { font: F(40), fill: WARN });
+  }
   if (g.state === "dead" || g.state === "win") {
     g.btns = [];
     drawOverlay(g);
@@ -29,11 +40,11 @@ function drawTitle(g) {
   const c = g.c;
   for (let i = 0; i < 60; i++) {
     const x = (i * 173) % W, y = (i * 97) % 300;
-    c.oval(x, y, x + 2, y + 2, { fill: "#554" });
+    c.oval(x, y, x + 2, y + 2, { fill: "#c8cdf5" });
   }
-  c.oval(W / 2 - 120, 230, W / 2 + 120, 470, { fill: "#7a2e14" });
+  c.oval(W / 2 - 120, 230, W / 2 + 120, 470, { fill: "#5b3fa0" });
   c.text(W / 2, 90, "MARS: NIGHT SHIFT", { font: F(44), fill: ACC });
-  c.text(W / 2, 140, "FAILURE IS NOT AN OPTION.", { font: F(13, false), fill: DIM });
+  c.text(W / 2, 140, "One habitat. One survivor. Zero margin for error.", { font: F(13, false), fill: TXT });
   const lines = [
     "Survive from 18:00 to 06:00 sunrise.",
     "Systems fail at random: weather, hull, power, air, suit, radiation.",
