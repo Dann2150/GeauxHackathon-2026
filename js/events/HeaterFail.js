@@ -23,6 +23,8 @@ export class HeaterFail extends Event {
 
     const heaterfail_audio = new Audio('../../Elevenlabs/Audio/heater_fail.mp3');
     heaterfail_audio.play();
+
+    heaterfail_audio.volume = 0.8;
   }
 
   flip(i) {

@@ -42,6 +42,8 @@ export class CabinPressure extends Event {
     
     const cabinpressure_audio = new Audio('../../Elevenlabs/Audio/cabin_pressure.mp3');
     cabinpressure_audio.play();
+
+    cabinpressure_audio.volume = 0.8;
   }
 
   inBand() {

@@ -36,6 +36,8 @@ export class RotatePipe extends Event {
     
     const rotatepipe_audio = new Audio('../../Elevenlabs/Audio/rotate_pipe.mp3');
     rotatepipe_audio.play();
+    
+    rotatepipe_audio.volume = 0.8;
     }
     this.outRow = row;
 

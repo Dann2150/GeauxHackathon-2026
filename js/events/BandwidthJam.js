@@ -39,6 +39,8 @@ export class BandwidthJam extends Event {
     
     const bandwidthjam_audio = new Audio('../../Elevenlabs/Audio/band_widthJam.mp3');
     bandwidthjam_audio.play();
+
+    bandwidthjam_audio.volume = 0.8;
   }
 
   effects(dt) {

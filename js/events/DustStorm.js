@@ -82,6 +82,8 @@ export class DustStorm extends Event {
 
     const duststorm_audio = new Audio('../../Elevenlabs/Audio/dust_storm.mp3');
     duststorm_audio.play();
+
+    duststorm_audio.volume = 0.8;
   }
 
   setCursorHidden(hide) {
