@@ -2,9 +2,9 @@
 
 export const W = 1000;
 export const H = 700;
-export const HOUR_SEC = 22; // real seconds per in-game hour (12 hours = 4m24s)
-export const HOURS = 12;
-export const NIGHT_SEC = 120; // real seconds a whole night lasts; the clock speeds up to fit
+export const HOUR_SEC = 10; // real seconds per in-game hour (12 hours = 4m24s)
+export const HOURS = 24.5;
+export const NIGHT_SEC = 180;
 
 export const BG = new Image();
 BG.src = "assets/geauxhack%20background.jpg";
@@ -14,7 +14,7 @@ MARS.src = "assets/marsGH.jpg";
 
 export const PANEL = "#0b1028";
 export const EDGE = "#58499b";
-export const TXT = "#ff7a3c";
+export const TXT = "#a5b4fc";
 export const DIM = "#9aa0e0";
 export const OK = "#4ade80";
 export const WARN = "#fbbf24";

@@ -130,7 +130,7 @@ export class Game {
       }
       beep();
     }
-    const base = Math.max(4.5, 15 - 0.6 * this.hourIdx() - 2 * (this.sol - 1));
+    const base = Math.max(4.5, 15 - 0.6 * this.hourIdx() - 1.3 * (this.sol - 1));
     this.spawnT = base * rand(0.7, 1.3);
   }
 

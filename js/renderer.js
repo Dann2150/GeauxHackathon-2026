@@ -64,7 +64,7 @@ function drawTitle(g) {
   c.text(W / 2, 90, "MARS: LIFE IN SPACE", { font: F(44), fill: ACC });
   c.text(W / 2, 140, "One habitat. One survivor. Zero margin for error.", { font: F(13), fill: TXT });
   const lines = [
-    "Survive from 18:00 to 06:00 sunrise.",
+    "Survive until the next Sol.",
     "Systems fail at random: weather, hull, power, air, suit, radiation.",
     "Each fix lives on its own tab. Flashing tab = something is dying.",
     "Ignore an alert too long and it does severe damage.",
@@ -165,10 +165,10 @@ function drawLog(g) {
     }
     if (currentLine) lines.push(currentLine);
 
-    const lineColor = (i===0)? "#a5b4fc" : TXT
+    const lineColor = (i===0)? "#ff7a3c" : TXT
     // Draw each line individually and advance the Y coordinate
     lines.forEach((line) => {
-      // Stop drawing if we reach the bottom of the box
+      // Stop drawing if we reach the bottom of the box 
       if (currentY > 670) return;
 
       c.text(32, currentY, line, { 
