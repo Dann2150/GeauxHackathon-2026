@@ -60,7 +60,7 @@ function drawTitle(g) {
 }
 
   c.text(W / 2, 90, "MARS: NIGHT SHIFT", { font: F(44), fill: ACC });
-  c.text(W / 2, 140, "One habitat. One survivor. Zero margin for error.", { font: F(13, false), fill: TXT });
+  c.text(W / 2, 140, "One habitat. One survivor. Zero margin for error.", { font: F(13), fill: TXT });
   const lines = [
     "Survive from 18:00 to 06:00 sunrise.",
     "Systems fail at random: weather, hull, power, air, suit, radiation.",
@@ -68,7 +68,7 @@ function drawTitle(g) {
     "Ignore an alert too long and it does severe damage.",
     "Keys 1-5 switch tabs. P pauses.",
   ];
-  lines.forEach((ln, i) => c.text(W / 2, 500 + i * 22, ln, { font: F(11, false), fill: TXT }));
+  lines.forEach((ln, i) => c.text(W / 2, 500 + i * 22, ln, { font: F(11), fill: TXT }));
   g.btn([W / 2 - 110, 620, W / 2 + 110, 668], "BEGIN SHIFT", () => g.newGame());
 }
 
@@ -123,7 +123,7 @@ function drawPanel(g) {
     const [x0, y0, x1, y1] = area;
     c.rect(...area, { fill: PANEL, outline: EDGE, width: 2 });
     const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
-    for (const rad of [60, 110, 160]) c.oval(cx - rad, cy - rad, cx + rad, cy + rad, { outline: EDGE });
+    for (const rad of [60, 110, 160]) c.oval(cx - rad, cy - rad, cx + rad, cy + rad, { outline: "#4ade80" });
     const a = now() * 1.6;
     c.line([cx, cy, cx + 160 * Math.cos(a), cy + 160 * Math.sin(a)], { fill: OK, width: 2 });
     c.text(cx, y0 + 30, TABS[g.tab] + ": ALL SYSTEMS NOMINAL", { font: F(16), fill: OK });
