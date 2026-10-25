@@ -52,9 +52,6 @@ export class LooseCables extends Event {
     if (!this.cableRects.length) return;
     const mouse = this.g.mouse;
 
-    this.overGame = !!(this.visible && this.gameRect && inrect(mouse, this.gameRect));
-    this.setCursorHidden(this.overGame);
-
     const down = this.g.down;
     const click = down && !this.wasDown;
     this.wasDown = down;
@@ -120,6 +117,10 @@ export class LooseCables extends Event {
   drawGame(c, r) {
     const [x0, y0, x1, y1] = r;
     this.gameRect = r;
+
+    this.overGame = !!(this.visible && inrect(this.g.mouse, r));
+    if (this.overGame && this.canvasEl) this.canvasEl.style.cursor = "none";
+
     const cx = (x0 + x1) / 2;
     const n = COLORS.length;
 

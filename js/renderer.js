@@ -10,6 +10,7 @@ function clockText(t) {
 
 export function draw(g) {
   const c = g.c;
+  c.ctx.canvas.style.cursor = ""; // rehides the cursor only while active
 
   // background picture, scaled to cover the screen, with a dark fallback
   c.rect(0, 0, W, H, { fill: "#1b133d" });
@@ -34,6 +35,7 @@ export function draw(g) {
     g.btns = [];
     drawOverlay(g);
   }
+  if (g.paused || g.state === "dead" || g.state === "win") c.ctx.canvas.style.cursor = ""; // rehide cursor only while event is active
 }
 
 function drawTitle(g) {

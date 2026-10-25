@@ -102,9 +102,6 @@ export class DustStorm extends Event {
   update(dt) {
     const m = this.g.mouse;
 
-    this.overGame = !!(this.visible && this.gameRect && inrect(m, this.gameRect));
-    this.setCursorHidden(this.overGame);
-
     if (this.visible && this.last) {
       const dist = Math.hypot(m[0] - this.last[0], m[1] - this.last[1]);
       this.panelRects.forEach((pr, i) => {
@@ -127,6 +124,9 @@ export class DustStorm extends Event {
   drawGame(c, r) {
     const [x0, y0, x1, y1] = r;
     this.gameRect = r;
+
+    this.overGame = !!(this.visible && inrect(this.g.mouse, r));
+    if (this.overGame && this.canvasEl) this.canvasEl.style.cursor = "none";
 
     // solar panels
     const gx = x0 + 40, gy = y0 + (y1 - y0) * 0.12;
