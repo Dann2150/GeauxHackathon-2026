@@ -28,6 +28,8 @@ export class CosmicRadiation extends Event {
 
     const cosmicradiation_audio = new Audio('../../Elevenlabs/Audio/cosmic_radiation.mp3');
     cosmicradiation_audio.play();
+
+    cosmicradiation_audio.volume = 0.8;
   }
 
   newPacket() {

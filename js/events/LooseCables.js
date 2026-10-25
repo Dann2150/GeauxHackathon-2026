@@ -31,6 +31,8 @@ export class LooseCables extends Event {
 
     const loosecables_audio = new Audio('../../Elevenlabs/Audio/loose_cables.mp3');
     loosecables_audio.play();
+    
+    loosecables_audio.volume = 0.8;
   }
 
   setCursorHidden(hide) {

@@ -29,3 +29,19 @@ function tick() {
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
+
+const backgroundMusic = new Audio('../../Elevenlabs/Audio/music.mp3');
+
+backgroundMusic.loop = true;
+
+backgroundMusic.volume = 0.02;
+
+function initAudio() {
+    backgroundMusic.play().catch(error => {
+        console.log("Autoplay prevented by browser:", error);
+    });
+
+    window.removeEventListener('click', initAudio);
+}
+
+window.addEventListener('click', initAudio);

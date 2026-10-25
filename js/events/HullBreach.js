@@ -63,6 +63,8 @@ export class HullBreach extends Event {
 
     const hullbreach_audio = new Audio('../../Elevenlabs/Audio/hull_breach.mp3');
     hullbreach_audio.play();
+
+    hullbreach_audio.volume = 0.8;
   }
 
   remaining() {
