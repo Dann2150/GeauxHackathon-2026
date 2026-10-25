@@ -12,7 +12,7 @@ export const MARS = new Image();
 MARS.src = "assets/marsGH.jpg";
 
 export const PANEL = "#0b1028";
-export const EDGE = "#1b133d";
+export const EDGE = "#58499b";
 export const TXT = "#ff7a3c";
 export const DIM = "#9aa0e0";
 export const OK = "#4ade80";
