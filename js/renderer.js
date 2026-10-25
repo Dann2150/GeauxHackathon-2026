@@ -61,7 +61,7 @@ function drawTitle(g) {
   c.oval(W / 2 - 120, 230, W / 2 + 120, 470, { fill: "#5b3fa0" }); // fallback if the image fails to load
 }
 
-  c.text(W / 2, 90, "MARS: NIGHT SHIFT", { font: F(44), fill: ACC });
+  c.text(W / 2, 90, "MARS: LIFE IN SPACE", { font: F(44), fill: ACC });
   c.text(W / 2, 140, "One habitat. One survivor. Zero margin for error.", { font: F(13), fill: TXT });
   const lines = [
     "Survive from 18:00 to 06:00 sunrise.",
