@@ -6,7 +6,7 @@
 
 ## Team
 
-[David Nguyen](), [Vathana Sovann](), [Katsu Kawahara](), [Cindy Dinh](), [Olivia Rodriguez]()
+[David Nguyen](https://github.com/Dann2150), [Vathana Sovann](https://github.com/Thava1206), [Katsu Kawahara](https://github.com/kkawahara111), [Cindy Dinh](https://github.com/cindydinh), [Olivia Rodriguez](https://github.com/Oroddy45)
 
 ## About
 
