@@ -14,6 +14,7 @@ const MISS_PENALTY = 0.5;  // messages lost when an urgent one times out
 const URGENT = ["MEDICAL DATA", "LIFE SUPPORT ALERT", "SUIT TELEMETRY", "HULL SENSOR REPORT", "CREW HEALTH LOG"];
 const ROUTINE = ["WEATHER LOG", "PHOTO UPLOAD", "CREW EMAIL", "MUSIC LIBRARY", "SYSTEM BACKUP", "VIDEO CALL"];
 
+
 export class BandwidthJam extends Event {
   static title = "BANDWIDTH JAM";
   static system = 4;
@@ -28,6 +29,10 @@ export class BandwidthJam extends Event {
     this.spawnT = 0;
     this.wasDown = false;
     this.flash = null; // { text, col, t }
+
+    
+    const bandwidthjam_audio = new Audio('../../Elevenlabs/Audio/band_widthJam.mp3');
+    bandwidthjam_audio.play();
   }
 
   effects(dt) {

@@ -56,6 +56,8 @@ const CLEAN_RATE = 0.012;  // dust removed per px of brush movement
 const REGROW = 0.04;       // dust creeps back per second (set to 0 to disable)
 const DUST = "#e0a030";    // dust color (was brown)
 
+
+
 export class DustStorm extends Event {
   static title = "DUST STORM";
   static system = 1;
@@ -71,6 +73,9 @@ export class DustStorm extends Event {
     this.overGame = false;
     this.last = null;
     this.canvasEl = document.querySelector("canvas");
+
+    const duststorm_audio = new Audio('../../Elevenlabs/Audio/dust_storm.mp3');
+    duststorm_audio.play();
   }
 
   setCursorHidden(hide) {
