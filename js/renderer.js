@@ -33,7 +33,7 @@ function drawTitle(g) {
   }
   c.oval(W / 2 - 120, 230, W / 2 + 120, 470, { fill: "#7a2e14" });
   c.text(W / 2, 90, "MARS: NIGHT SHIFT", { font: F(44), fill: ACC });
-  c.text(W / 2, 140, "One habitat. One survivor. Zero margin for error.", { font: F(13, false), fill: DIM });
+  c.text(W / 2, 140, "FAILURE IS NOT AN OPTION.", { font: F(13, false), fill: DIM });
   const lines = [
     "Survive from 18:00 to 06:00 sunrise.",
     "Systems fail at random: weather, hull, power, air, suit, radiation.",
