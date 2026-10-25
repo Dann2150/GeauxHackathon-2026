@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 from elevenlabs.client import ElevenLabs
 
+load_dotenv()
+
 client = ElevenLabs(api_key=os.environ.get("ELEVEN_API_KEY"))
 
 # Get raw response with headers
