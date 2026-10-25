@@ -107,16 +107,16 @@ with open("./Audio/rotate_pipe.mp3", "wb") as f:
 
 #8
 
-scrubber_fail = client.text_to_speech.stream(
+cabin_pressure = client.text_to_speech.stream(
     voice_id="XB0fDUnXU5powFXDhCwa",
     output_format="mp3_44100_128",
-    text="OXYGEN LEVELS ARE DROPPING",
+    text="CABIN PRESSURE LEVELS ARE DROPPING",
     model_id="eleven_multilingual_v2",
 )
 
-with open("./Audio/scrubber_fail.mp3", "wb") as f:
+with open("./Audio/cabin_pressure.mp3", "wb") as f:
     
-    for chunk in scrubber_fail:
+    for chunk in cabin_pressure:
         f.write(chunk)
 
 #9
