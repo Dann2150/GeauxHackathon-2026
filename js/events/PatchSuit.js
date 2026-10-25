@@ -24,7 +24,7 @@ export class PatchSuit extends Event {
       }
     }
     this.drag = false;
-    this.patch = null; // [x, y] while dragging
+    this.patch = null; 
 
     const patchsuit_audio = new Audio('../../Elevenlabs/Audio/patch_suit.mp3');
     patchsuit_audio.play();
