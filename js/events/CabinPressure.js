@@ -16,7 +16,12 @@ export class CabinPressure extends Event {
   static system = 2; // Life support
   static stat = "OXYGEN";
   static blurb = "A hull seal is leaking and cabin pressure keeps drifting. PUMP and VENT to hold it inside the target range until the seal holds.";
-
+  static facts = [
+    "Fun Fact: Fine particles can collect on contact surfaces and prevent a gasket from sealing evenly.",
+    "Fun Fact: A hatch could appear secure when closed but leak after temperature changes, vibration, or structural movement. Testing under representative operating conditions helps reveal weaknesses.",
+    "Fun Fact: If the habitat replenishes lost atmosphere, it uses up stored gases or consumes energy to generate replacement gases. A persistent leak can therefore become a resource-management problem.",
+    "Fun Fact: If the leak comes from a compartment or connector that can be shut off safely, the crew may isolate the affected area while preparing a permanent repair."
+  ];
   static BAND_WIDTH = 20; // size of the target range (in pressure units)
   static HOLD_TIME = 5;   // seconds of continuous stability needed
   static STEP = 6;        // PUMP adds +STEP, VENT adds -STEP

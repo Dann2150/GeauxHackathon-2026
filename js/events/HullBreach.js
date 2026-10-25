@@ -42,7 +42,13 @@ export class HullBreach extends Event {
   static system = 0;
   static stat = "PRESSURE";
   static blurb = "Micrometeorite strike! HOLD the mouse and trace the welding torch slowly along each crack to seal it.";
-
+  static facts = [
+    "Fun Fact: Mars's atmosphere cannot replace the lost air. Mars's atmosphere is mostly carbon dioxide and is far too thin for humans to breathe.",
+    "Fun Fact: A habitat can continuously monitor cabin pressure. An unexpected pressure decline can trigger alarms before the loss becomes obvious to the crew.",
+    "Fun Fact: Multiple pressure-tight modules with isolating hatches can allow the crew to seal off a damaged compartment and preserve the atmosphere in other sections.",
+    "Fun Fact: Falling pressure can interfere with temperature regulation, water handling, and equipment designed to operate at cabin pressure.",
+    "Mars experiences substantial temperature variation. Repeated thermal expansion and contraction can contribute to material fatigue and seal degradation over time."
+  ];
   setup() {
     this.cracks = [];
     while (this.cracks.length < 3) {

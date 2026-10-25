@@ -13,6 +13,12 @@ export class CosmicRadiation extends Event {
   static system = 4;
   static stat = "RADIATION";
   static blurb = "Cosmic rays flipped bits in the comms memory, blinding the radiation monitor. Click the ONE symbol that doesn't match. Fix 3 packets; a wrong click starts you over.";
+  static facts = [
+    "Fun Fact: Directional antennas and carefully selected frequencies can improve resilience, although no single technique eliminates every source of interference.",
+    "Fun Fact: Galactic cosmic rays include high-energy protons and heavier atomic nuclei. When these particles strike electronic components, they can cause unexpected changes in stored data, computing operations, or hardware.",
+    "Fun Fact: A high-energy particle can deposit charge in a semiconductor and cause a single-event upset. A stored 0 might become a 1, or vice versa.",
+    "Fun Fact: Habitat computers may coordinate communications with life support, power, navigation, and environmental sensors. A fault in shared computing infrastructure could affect several systems at once"
+  ];
 
   setup() {
     this.round = 0;

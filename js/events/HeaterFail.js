@@ -9,7 +9,11 @@ export class HeaterFail extends Event {
   static system = 0;
   static stat = "HEAT";
   static blurb = "The habitat is freezing. Switch every breaker ON, but each switch also flips its neighbour. Think!";
-
+  static facts = [
+    "Fun Fact: Some surges last only microseconds or milliseconds. Even though they're extremely brief, they can deliver enough electrical energy to damage vulnerable components.",
+    "Fun Fact: Ordinary circuit breakers are designed primarily to interrupt excessive current, not necessarily to clamp a very brief voltage spike. A Mars habitat would need appropriately coordinated protection.",
+    "Fun Fact: NASA's 2024 Mars architecture review selected nuclear fission as the primary surface power-generation technology for its initial crewed Mars mission planning. Unlike solar arrays, a fission power system can provide continuous electricity regardless of sunlight and dust-storm conditions.",
+  ];
   setup() {
     this.n = 6;
     this.st = Array(this.n).fill(true);
