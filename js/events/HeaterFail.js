@@ -2,6 +2,8 @@ import { Event } from "./Event.js";
 import { OK, BAD } from "../config.js";
 import { F, randInt } from "../utils.js";
 
+
+
 export class HeaterFail extends Event {
   static title = "HEATER BREAKERS TRIPPED";
   static system = 0;
@@ -14,6 +16,9 @@ export class HeaterFail extends Event {
     const flips = randInt(3, 5);
     for (let i = 0; i < flips; i++) this.flip(Math.floor(Math.random() * this.n));
     if (this.st.every(Boolean)) this.flip(0);
+
+    const heaterfail_audio = new Audio('../../Elevenlabs/Audio/heater_fail.mp3');
+    heaterfail_audio.play();
   }
 
   flip(i) {

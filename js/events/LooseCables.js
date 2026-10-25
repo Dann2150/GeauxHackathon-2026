@@ -7,6 +7,8 @@ const LIGHT_R = 90;           // flashlight radius in px
 const WRONG_DAMAGE = 0.6;     // extra power damage for plugging into the wrong port
 const DIM = "#161c24";        // how cables look outside the light (shapes visible, colors not)
 
+
+
 export class LooseCables extends Event {
   static title = "POWER SURGE";
   static system = 1;
@@ -27,6 +29,9 @@ export class LooseCables extends Event {
     this.wasDown = false;
     this.flash = null;
     this.canvasEl = document.querySelector("canvas");
+
+    const loosecables_audio = new Audio('../../Elevenlabs/Audio/loose_cables.mp3');
+    loosecables_audio.play();
   }
 
   setCursorHidden(hide) {

@@ -7,6 +7,8 @@ const REACH = 15; // torch radius that counts as "on the seam"
 const FUSE = 0.06; // seconds the torch must linger on a point to fuse it
 const COOL = 1.5; // seconds for a fresh bead to cool from white-hot to grey
 
+
+
 // Jagged seam as offsets from its centre, resampled every STEP px.
 function makeSeam() {
   const verts = [];
@@ -52,6 +54,9 @@ export class HullBreach extends Event {
     this.sparks = [];
     this.gameRect = null;
     this.welding = false;
+
+    const hullbreach_audio = new Audio('../../Elevenlabs/Audio/hull_breach.mp3');
+    hullbreach_audio.play();
   }
 
   remaining() {
