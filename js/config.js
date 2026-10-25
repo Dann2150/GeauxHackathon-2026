@@ -8,6 +8,9 @@ export const HOURS = 12;
 export const BG = new Image();
 BG.src = "assets/geauxhack%20background.jpg";
 
+export const MARS = new Image();
+MARS.src = "assets/marsGH.jpg";
+
 export const PANEL = "#0b1028";
 export const EDGE = "#1b133d";
 export const TXT = "#ff7a3c";

@@ -1,6 +1,6 @@
 // All screen drawing: title, HUD, tabs, event panel, log and overlays.
 
-import { W, H, HOUR_SEC, HOURS, BG, PANEL, EDGE, TXT, DIM, OK, WARN, BAD, ACC, TABS, STAT_ORDER } from "./config.js";
+import { W, H, HOUR_SEC, HOURS, BG, MARS, PANEL, EDGE, TXT, DIM, OK, WARN, BAD, ACC, TABS, STAT_ORDER } from "./config.js";
 import { F, blink, now, pad2 } from "./utils.js";
 
 function clockText(t) {
@@ -42,7 +42,23 @@ function drawTitle(g) {
     const x = (i * 173) % W, y = (i * 97) % 300;
     c.oval(x, y, x + 2, y + 2, { fill: "#c8cdf5" });
   }
-  c.oval(W / 2 - 120, 230, W / 2 + 120, 470, { fill: "#5b3fa0" });
+  if (MARS.complete && MARS.naturalWidth) {
+  const size = 240;                 // planet diameter on screen
+  const px = W / 2 - size / 2, py = 230;
+  const iw = MARS.naturalWidth, ih = MARS.naturalHeight;
+  // crop box around the planet (fractions of the image)
+  const sx = 0.183 * iw, sy = 0.183 * ih, sw = 0.6 * iw, sh = 0.6 * ih;
+  const ctx = c.ctx;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(W / 2, py + size / 2, size / 2, 0, Math.PI * 2); // circular clip hides the white corners
+  ctx.clip();
+  ctx.drawImage(MARS, sx, sy, sw, sh, px, py, size, size);
+  ctx.restore();
+} else {
+  c.oval(W / 2 - 120, 230, W / 2 + 120, 470, { fill: "#5b3fa0" }); // fallback if the image fails to load
+}
+
   c.text(W / 2, 90, "MARS: NIGHT SHIFT", { font: F(44), fill: ACC });
   c.text(W / 2, 140, "One habitat. One survivor. Zero margin for error.", { font: F(13, false), fill: TXT });
   const lines = [
