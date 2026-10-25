@@ -171,6 +171,10 @@ export class Game {
       if (lost) {
         this.cause = cause;
         this.state = "dead";
+        
+        const death_audio = new Audio('../../Elevenlabs/Audio/death_audio.mp3');
+        death_audio.play();
+        
         return;
       }
     }
