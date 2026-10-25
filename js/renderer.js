@@ -165,15 +165,16 @@ function drawLog(g) {
     }
     if (currentLine) lines.push(currentLine);
 
-    // Draw each line individually 
-    lines.forEach((line, lineIndex) => {
+    const lineColor = (i===0)? "#a5b4fc" : TXT
+    // Draw each line individually and advance the Y coordinate
+    lines.forEach((line) => {
       // Stop drawing if we reach the bottom of the box
       if (currentY > 670) return;
 
       c.text(32, currentY, line, { 
         anchor: "nw", 
         font: F(10), 
-        fill: TXT
+        fill: lineColor
       });
       
       currentY += 18; // Space out each line vertically
