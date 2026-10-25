@@ -65,16 +65,16 @@ with open("./Audio/hull_breach.mp3", "wb") as f:
 
 #5
 
-overheat = client.text_to_speech.stream(
+loose_cables = client.text_to_speech.stream(
     voice_id="XB0fDUnXU5powFXDhCwa",
     output_format="mp3_44100_128",
-    text="BATTERY IS OVERHEATING",
+    text="LIGHTS OUT, FIX THE CABLES",
     model_id="eleven_multilingual_v2",
 )
 
-with open("./Audio/overheat.mp3", "wb") as f:
+with open("./Audio/loose_cables.mp3", "wb") as f:
     
-    for chunk in overheat:
+    for chunk in loose_cables:
         f.write(chunk)
 
 #6
@@ -121,32 +121,17 @@ with open("./Audio/scrubber_fail.mp3", "wb") as f:
 
 #9
 
-solar_flare = client.text_to_speech.stream(
+band_widthJam = client.text_to_speech.stream(
     voice_id="XB0fDUnXU5powFXDhCwa",
     output_format="mp3_44100_128",
-    text="RADIATION LEVELS ARE RISING",
+    text="LINK HAS OVERLOADED",
     model_id="eleven_multilingual_v2",
 )
 
-with open("./Audio/solar_flare.mp3", "wb") as f:
+with open("./Audio/band_widthJam.mp3", "wb") as f:
     
-    for chunk in solar_flare:
+    for chunk in band_widthJam:
         f.write(chunk)
-
-#10
-
-suit_leak = client.text_to_speech.stream(
-    voice_id="XB0fDUnXU5powFXDhCwa",
-    output_format="mp3_44100_128",
-    text="OPEN VALVES DETECTED",
-    model_id="eleven_multilingual_v2",
-)
-
-with open("./Audio/suit_leak.mp3", "wb") as f:
-    
-    for chunk in suit_leak:
-        f.write(chunk)
-
 
 print("Audio saved")
 
